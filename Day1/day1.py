@@ -1,25 +1,57 @@
-# Overview
-# ------------------------------------------------------------------------
+# Input Values
+# ---------------------------------------------------------------------
+# Values provided by AoC saved into a file input.txt
+# Create a soreted list of the values in the file
 #
-# Save the values on the input file in a dictionary(variable - exp_dict)
-# The key-value pair in this dictionary is defined as
-# <value_in_file>: 2020 - <value_in_file> e.g. { 1020: 1000, ...}
-# Iterate over the dictionary to see if the value component exists
-# in the dictioanry. If it does, the pair has been found
-# multilpy the key and value component to get the result, break out of
-# loop
-#
-# ------------------------------------------------------------------------
+# ---------------------------------------------------------------------
 
 with open('input.txt', 'r') as f:
-    exp_dict = {
-        exp: 2020 - exp for exp in
-        sorted([int(exp.replace('\n', '')) for exp in f.readlines()])
-    }
+    exp_list = sorted([int(exp.replace('\n', '')) for exp in f.readlines()])
 
-for key, value in exp_dict.items():
-    if value in exp_dict.keys():
-        print(f'Entry 1: {key}\n'
-        	   'Entry 2: {value}\n'
-        	   'Result: {key * value}')
-        break
+# Part 1: if n1 + n2 = 2020 then result = n1 * n2
+# ---------------------------------------------------------------------
+# 
+# Using list exp_list create a dictionary with key: value pairs defined
+# as <element_in_list>: 2020 - <element_in_list> e.g. {1000: 1020,...}
+# The dictionary is populated only if the value comopnent exists in the
+# list exp_list. The dictionary will only have two key-value pairs      
+# like {n1: n2, n2: n1}. Taking the first pair we multiply key * value
+# to get the result
+#    
+# ---------------------------------------------------------------------
+
+exp_dict = {exp: 2020 - exp for exp in exp_list if 2020 - exp in exp_list}
+
+n1 = next(iter(exp_dict))
+n2 = exp_dict[n1]
+result = n1 * n2
+print(result)
+
+# Part 2: if n1 + n2 + n3 = 2020 then result = n1 * n2 * n3 
+# ---------------------------------------------------------------------
+#
+# Solution is a modification of the solution to Part 1
+# For each element n1 in exp_list the maximum value for 
+# (n2 + n3) = 2020 - n1
+# exp_dict will now be key: value pairs defined as 
+# <element_in_list>: <max_value> - <element_in_list>
+# The dictionary is populated only if the value component exists in
+# exp_list
+# As was the case in Part 1, the result will only have two key-value
+# pairs. Taking the first pair n2 = Key and n3 = Value
+# (interchangeable)
+# Multiply n1, n2 and n3 for the result
+#
+# ---------------------------------------------------------------------
+
+n1 = exp_list.pop(0)
+while exp_list:
+    max_value = 2020 - n1
+    exp_dict = {exp: max_value - exp for exp in exp_list if max_value - exp in exp_list}
+    if exp_dict:
+        n2 = next(iter(exp_dict))  # Get the first key in exp_dict
+        n3 = exp_dict[n2]  # Value component for key n2 
+        result = n1 * n2 * n3
+    n1 = exp_list.pop(0)
+    n -= 1
+print(result)
