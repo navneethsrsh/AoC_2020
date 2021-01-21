@@ -1,4 +1,5 @@
 # AoC 2020 Day 3
+# Solution 1 
 
 with open('input.txt', 'r') as f:
     route_map = [path[:-1] for path in f.readlines()]
