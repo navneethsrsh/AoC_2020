@@ -9,7 +9,7 @@ index = deque([x for x in range(len(route_map[0]))])
 max_height = len(route_map)
 
 # Part 1
-h, w = 0, 0
+h = 0
 trees = 0
 
 while h < max_height - 1:
@@ -28,7 +28,6 @@ mul_trees = 1
 
 for x, y in slopes:
     h = 0
-    w = 0
     trees = 0
     
     while h < max_height - y:
