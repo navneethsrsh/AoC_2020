@@ -1,4 +1,3 @@
-import datetime
 # Day 2 AoC 2020
 
 with open('input.txt', 'r') as f:
