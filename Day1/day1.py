@@ -6,7 +6,7 @@
 # ---------------------------------------------------------------------
 
 with open('input.txt', 'r') as f:
-    exp_list = sorted([int(exp.replace('\n', '')) for exp in f.readlines()])
+    exp_list = sorted([int(exp.replace[:-1]) for exp in f.readlines()])
 
 # Part 1: if n1 + n2 = 2020 then result = n1 * n2
 # ---------------------------------------------------------------------
